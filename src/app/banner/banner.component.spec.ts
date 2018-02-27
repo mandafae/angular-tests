@@ -30,4 +30,23 @@ describe('BannerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display original title', () => {
+    // Hooray! No `fixture.detectChanges()` needed
+    expect(el.textContent).toContain(component.title);
+  });
+
+  it('should still see original title after comp.title change', () => {
+    const oldTitle = component.title;
+    component.title = 'Test Title';
+    // Displayed title is old because Angular didn't hear the change :(
+    expect(el.textContent).toContain(oldTitle);
+  });
+
+  it('should display updated title after detectChanges', () => {
+    component.title = 'Test Title';
+    fixture.detectChanges(); // detect changes explicitly
+    expect(el.textContent).toContain(component.title);
+  });
+
 });
